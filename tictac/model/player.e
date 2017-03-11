@@ -36,6 +36,9 @@ feature -- Commands
 			vailid_score: new_score >= 0 and new_score > score
 		do
 			score := new_score
+
+		ensure
+			score_updated: score = old score + new_score
 		end
 
 feature -- Queires
