@@ -62,19 +62,17 @@ feature -- Queries
 		end
 
 	out: STRING
-		local
-			i: INTEGER
 		do
 			create Result.make_empty
 
 			across board as cursor loop
-				i := cursor.cursor_index
 
 				Result.append (cursor.item)
 
-				if i = 3 or i = 6 then
+				if cursor.cursor_index /= number_of_board_fields then
 					Result.append ("%N")
 				end
+
 			end
 		end
 
