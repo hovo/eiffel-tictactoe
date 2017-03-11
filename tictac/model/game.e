@@ -11,7 +11,7 @@ create
 	new_game
 
 feature -- Attributes
-	game_board: BOARD_TEMPLATE
+	game_board: BOARD
 	player_1: PLAYER
 	player_2: PLAYER
 	--winning_piece: STRING
@@ -26,11 +26,11 @@ feature -- Constructor
 		do
 			create player_1.make_player (p1, 0, "X")
 			create player_2.make_player (p2, 0, "O")
-			create {THREE_BY_THREE_BOARD} game_board.make_empty
+			create game_board.make_board (3)
 		end
 
 feature -- Queries
-	is_winning_move (last_move_index: INTEGER): BOOLEAN
+	is_win: BOOLEAN
 		do
 			-- TODO
 			Result := true

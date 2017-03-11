@@ -25,29 +25,29 @@ feature {NONE}
 feature
 	t1: BOOLEAN
 		local
-			b: THREE_BY_THREE_BOARD
+			b: BOARD
 		do
 			comment ("t1: Test empty board creation routine")
-			create b.make_empty
+			create b.make_board (3)
 			sub_comment (b.out)
 			Result := across b.board as it all it.item ~ "_" and b.board.count = 9 end
 		end
 
 	t2: BOOLEAN
 		local
-			b: THREE_BY_THREE_BOARD
+			b: BOARD
 		do
 			comment ("t2: Test board empty routine")
-			create b.make_empty
+			create b.make_board (3)
 			Result := b.is_board_empty
 		end
 
 	t3: BOOLEAN
 		local
-			b: THREE_BY_THREE_BOARD
+			b: BOARD
 		do
 			comment ("t3: Test board full routine")
-			create b.make_empty
+			create b.make_board (3)
 			Result := not b.is_board_full
 		end
 
