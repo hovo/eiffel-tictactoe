@@ -22,6 +22,7 @@ feature -- Constructor
 	-- Create a new game
 		require
 			valid_name: check_player_name(p1) and check_player_name(p2)
+			unique_names: p1 /~ p2
 
 		do
 			create player_1.make_player (p1, 0, "X")
