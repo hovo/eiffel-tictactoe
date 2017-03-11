@@ -35,10 +35,7 @@ feature -- Constructor
 			end
 
 		ensure
-			initialized:
-				across board as cursor all
-					cursor.item ~ empty_field and board.count = board_size
-				end
+			initialized: is_board_empty
 
 		end
 
@@ -82,6 +79,17 @@ feature -- Queries
 					Result.append ("%N")
 				end
 			end
+		end
+
+feature -- Commands
+	clear_board
+		do
+			if not is_board_empty then
+				across board as cursor loop
+					board.replace (empty_field)
+				end
+			end
+
 		end
 
 feature -- Helpers

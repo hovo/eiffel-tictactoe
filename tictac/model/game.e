@@ -11,9 +11,10 @@ create
 	new_game
 
 feature -- Attributes
-	game_board: THREE_BY_THREE_BOARD
+	game_board: BOARD_TEMPLATE
 	player_1: PLAYER
 	player_2: PLAYER
+	--winning_piece: STRING
 	-- History list for undo/redo
 
 feature -- Constructor
@@ -25,7 +26,20 @@ feature -- Constructor
 		do
 			create player_1.make_player (p1, 0, "X")
 			create player_2.make_player (p2, 0, "O")
-			create game_board.make_empty
+			create {THREE_BY_THREE_BOARD} game_board.make_empty
+		end
+
+feature -- Queries
+	is_winning_move (last_move_index: INTEGER): BOOLEAN
+		do
+			-- TODO
+			Result := true
+		end
+
+	is_draw: BOOLEAN
+		do
+			-- TODO
+			Result := true
 		end
 
 feature -- Helper

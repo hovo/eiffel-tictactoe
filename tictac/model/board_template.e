@@ -28,4 +28,12 @@ feature -- Queries
 		deferred
 		end
 
+feature -- Commands
+	clear_board
+		-- Clear the board if not already empty
+		deferred
+		ensure
+			board_cleared: is_board_empty
+		end
+
 end
