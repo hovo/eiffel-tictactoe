@@ -7,6 +7,12 @@ note
 class
 	PLAYER
 
+inherit
+	ANY
+		redefine
+			out
+		end
+
 create
 	make_player
 
@@ -22,6 +28,24 @@ feature -- Constructor
 			name := p_name
 			score := p_score
 			piece := p_piece
+		end
+
+feature -- Commands
+	set_score (new_score: INTEGER)
+		require
+			vailid_score: new_score >= 0
+		do
+			score := new_score
+		end
+
+feature -- Queires
+	out: STRING
+		local
+			out_template: STRING
+		do
+			create Result.make_empty
+			out_template := score.out + ": score for %"" + name + "%"" + " (as " + piece + ")"
+			Result.append (out_template)
 		end
 
 end

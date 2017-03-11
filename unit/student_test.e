@@ -19,6 +19,7 @@ feature {NONE}
 			add_boolean_case (agent t1)
 			add_boolean_case (agent t2)
 			add_boolean_case (agent t3)
+			add_boolean_case (agent t4)
 		end
 
 feature
@@ -49,5 +50,17 @@ feature
 			create b.make_empty
 			Result := not b.is_board_full
 		end
+
+	t4: BOOLEAN
+		local
+			p: PLAYER
+		do
+			comment ("t4: Test player out and change score routine")
+			create p.make_player ("Einstain", 0, "X")
+			sub_comment (p.out)
+			p.set_score (5)
+			Result := p.score = 5
+		end
+
 
 end
