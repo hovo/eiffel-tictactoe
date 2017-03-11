@@ -17,7 +17,7 @@ feature -- Attributes
 
 feature -- Constructor
 	make (p_name: STRING; p_score: INTEGER; p_piece: STRING)
-		-- Create player
+		-- Create a player
 		do
 			name := p_name
 			score := p_score
