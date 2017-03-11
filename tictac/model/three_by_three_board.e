@@ -73,9 +73,11 @@ feature -- Queries
 			i: INTEGER
 		do
 			create Result.make_empty
+
 			across board as cursor loop
 				i := cursor.cursor_index
 				Result.append (cursor.item)
+
 				if i = 3 or i = 6 then
 					Result.append ("%N")
 				end
