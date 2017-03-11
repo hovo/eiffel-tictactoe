@@ -8,7 +8,7 @@ class
 	PLAYER
 
 create
-	make
+	make_player
 
 feature -- Attributes
 	name: STRING
@@ -16,7 +16,7 @@ feature -- Attributes
 	piece: STRING
 
 feature -- Constructor
-	make (p_name: STRING; p_score: INTEGER; p_piece: STRING)
+	make_player (p_name: STRING; p_score: INTEGER; p_piece: STRING)
 		-- Create a player
 		do
 			name := p_name
