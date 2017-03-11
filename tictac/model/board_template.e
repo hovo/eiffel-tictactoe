@@ -23,4 +23,9 @@ feature -- Queries
 		deferred
 		end
 
+	get_piece_at (button_number: INTEGER): STRING
+		-- Returns either "X" or "O" at specified board index
+		deferred
+		end
+
 end

@@ -50,6 +50,8 @@ feature -- Queries
 		end
 
 	is_button_empty (button_number: INTEGER): BOOLEAN
+		require else
+			valid_index: valid_button_number (button_number)
 		do
 			Result := board.at (button_number) ~ empty_field
 		end
@@ -57,6 +59,13 @@ feature -- Queries
 	is_board_full: BOOLEAN
 		do
 			Result := board.occurrences (empty_field) = 0
+		end
+
+	get_piece_at (button_number: INTEGER): STRING
+		require else
+			valid_index: valid_button_number (button_number)
+		do
+			Result := board.at (button_number)
 		end
 
 	out: STRING
@@ -71,6 +80,12 @@ feature -- Queries
 					Result.append ("%N")
 				end
 			end
+		end
+
+feature -- Helpers
+	valid_button_number (i: INTEGER): BOOLEAN
+		do
+			Result := i > 0 and i <= board_size
 		end
 
 	invariant
