@@ -57,6 +57,8 @@ feature
 		do
 			comment ("t4: Test player out and change score routine")
 			create p.make_player ("Einstain", 0, "X")
+			Result := p.name ~ "Einstain" and p.score = 0 and p.piece ~ "X"
+			Check Result end
 			sub_comment (p.out)
 			p.set_score (5)
 			Result := p.score = 5

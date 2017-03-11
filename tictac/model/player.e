@@ -33,7 +33,7 @@ feature -- Constructor
 feature -- Commands
 	set_score (new_score: INTEGER)
 		require
-			vailid_score: new_score >= 0
+			vailid_score: new_score >= 0 and new_score > score
 		do
 			score := new_score
 		end
