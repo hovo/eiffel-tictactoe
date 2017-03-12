@@ -100,13 +100,16 @@ feature -- Queries
 		-- returns list of elements in column c
 		local
 			column_array: ARRAYED_LIST[STRING]
-			c, c_index: INTEGER
+			c_index, hi: INTEGER
 		do
 			create column_array.make (0)
-			c := index_to_col (i)
+			c_index := index_to_col (i)
+			hi := board_size - 1
+			
+			column_array.extend (board.at (c_index))
 
-			across 1 |..| board_size as cursor loop
-				c_index := c + cursor.item * board_size
+			across 1 |..| hi as cursor loop
+				c_index := c_index +  board_size
 				column_array.extend (board.at (c_index))
 			end
 
