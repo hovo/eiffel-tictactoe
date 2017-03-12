@@ -22,6 +22,7 @@ feature {NONE}
 			add_boolean_case (agent t4)
 			add_boolean_case (agent t5)
 			add_boolean_case (agent t6)
+			add_boolean_case (agent t7)
 		end
 
 feature
@@ -90,6 +91,20 @@ feature
 			b.board.put_i_th ("X", 8)
 			sub_comment (b.out)
 			Result := b.check_column (2)
+		end
+
+	t7: BOOLEAN
+		local
+			b: BOARD
+			list: ARRAYED_LIST[INTEGER]
+		do
+			comment ("t7: Test get diaganal")
+			create b.make_board (3)
+			list := b.get_diaganal (1)
+			Result := list.has (1) and list.has (5) and list.has (9)
+			Check Result end
+			list := b.get_diaganal (3)
+			Result := list.has (3) and list.has (5) and list.has (7)
 		end
 
 

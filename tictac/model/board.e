@@ -105,7 +105,7 @@ feature -- Queries
 			create column_array.make (0)
 			c_index := index_to_col (i)
 			hi := board_size - 1
-			
+
 			column_array.extend (board.at (c_index))
 
 			across 1 |..| hi as cursor loop
@@ -134,34 +134,32 @@ feature -- Queries
 
 		end
 
-	get_diaganal (i:INTEGER): ARRAYED_LIST[INTEGER]
+	get_diaganal (i: INTEGER): ARRAYED_LIST[INTEGER]
 		local
 			diaganal: ARRAYED_LIST[INTEGER]
-			index: INTEGER
+			c, hi: INTEGER
 		do
 			create diaganal.make (0)
-			index := i
+			hi := board_size - 1
 
-			across board as c loop
-				index := index + board_size + 1
-				diaganal.extend (index)
+			if i = 1 then
+				c := i
+				diaganal.extend (c)
+				across 1 |..| hi as cursor loop
+					c := c + (board_size + 1)
+					diaganal.extend (c)
+				end
+			else
+				c := board_size
+				diaganal.extend (c)
+				across 1 |..| hi as cursor loop
+					c := c + (board_size - 1)
+					diaganal.extend (c)
+				end
 			end
 
 			Result := diaganal
 		end
-
-	is_on_diaganal (i: INTEGER): BOOLEAN
-		local
-			left_diaganal, right_diaganal: ARRAYED_LIST[INTEGER]
-			--left_index, right_index: INTEGER
-		do
-			left_diaganal := get_diaganal (1)
-			right_diaganal := get_diaganal (board_size)
-
-
-			Result := true
-		end
-
 
 	check_row (i: INTEGER): BOOLEAN
 		-- Check for win in row
