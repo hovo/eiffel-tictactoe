@@ -173,11 +173,25 @@ feature -- Queries
 			Result := is_array_element_same (get_col (i))
 		end
 
-	check_diaganal (i: INTEGER): BOOLEAN
+	check_diaganal (i: INTEGER; list: ARRAYED_LIST[INTEGER] ): BOOLEAN
 		-- Check for win in the diaganal
+		local
+			o_occurances, x_occurances: INTEGER
 		do
-			--Result := is_array_element_same (get_diaganal (i))
-			Result := true
+			if list.has (i) then
+				across list as cursor loop
+					if board.at (cursor.item) ~ "X" then
+						x_occurances := x_occurances + 1
+					end
+					if board.at (cursor.item) ~ "O" then
+						o_occurances := o_occurances + 1
+					end
+				end
+			end
+
+			if x_occurances = 3 or o_occurances = 3 then
+				Result := true
+			end
 		end
 
 	out: STRING
