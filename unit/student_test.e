@@ -20,6 +20,8 @@ feature {NONE}
 			add_boolean_case (agent t2)
 			add_boolean_case (agent t3)
 			add_boolean_case (agent t4)
+			add_boolean_case (agent t5)
+			add_boolean_case (agent t6)
 		end
 
 feature
@@ -62,6 +64,32 @@ feature
 			sub_comment (p.out)
 			p.set_score (5)
 			Result := p.score = 5
+		end
+
+	t5: BOOLEAN
+		local
+			b: BOARD
+		do
+			comment ("t5: test row win")
+			create b.make_board (3)
+			b.board.put_i_th ("X", 1)
+			b.board.put_i_th ("X", 2)
+			b.board.put_i_th ("X", 3)
+			sub_comment (b.out)
+			Result := b.check_row (2)
+		end
+
+	t6: BOOLEAN
+		local
+			b: BOARD
+		do
+			comment ("t6: test column win")
+			create b.make_board (3)
+			b.board.put_i_th ("X", 2)
+			b.board.put_i_th ("X", 5)
+			b.board.put_i_th ("X", 8)
+			sub_comment (b.out)
+			Result := b.check_column (2)
 		end
 
 

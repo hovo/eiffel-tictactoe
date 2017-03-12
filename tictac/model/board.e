@@ -68,18 +68,26 @@ feature -- Queries
 		end
 
 	is_array_element_same (list: ARRAYED_LIST[STRING]): BOOLEAN
+		local
+			x_occurance, o_occurance: INTEGER
 		do
-			if list.occurrences ("X") = board_size or list.occurrences ("O") = board_size then
-				Result := true
-			else
-				Result := false
+			across list as cursor loop
+				if cursor.item  ~ "X" then
+					x_occurance := x_occurance + 1
+				end
+				if cursor.item ~ "O" then
+					o_occurance := o_occurance + 1
+				end
 			end
+
+			Result := x_occurance = board_size or o_occurance = board_size
+
 		end
 
 	index_to_row (i: INTEGER): INTEGER
 		-- Return the row from board index
 		do
-			Result := (i - 1) // board_size
+			Result := ((i - 1) // board_size) + 1
 		end
 
 	index_to_col (i: INTEGER): INTEGER
@@ -113,7 +121,7 @@ feature -- Queries
 		do
 			create row_array.make (0)
 			hi := index_to_row (i) * board_size
-			lo := hi - board_size
+			lo := hi - (board_size - 1)
 
 			across lo |..| hi as c loop
 				row_array.extend (board.at (c.item))
@@ -122,6 +130,35 @@ feature -- Queries
 			Result := row_array
 
 		end
+
+	get_diaganal (i:INTEGER): ARRAYED_LIST[INTEGER]
+		local
+			diaganal: ARRAYED_LIST[INTEGER]
+			index: INTEGER
+		do
+			create diaganal.make (0)
+			index := i
+
+			across board as c loop
+				index := index + board_size + 1
+				diaganal.extend (index)
+			end
+
+			Result := diaganal
+		end
+
+	is_on_diaganal (i: INTEGER): BOOLEAN
+		local
+			left_diaganal, right_diaganal: ARRAYED_LIST[INTEGER]
+			--left_index, right_index: INTEGER
+		do
+			left_diaganal := get_diaganal (1)
+			right_diaganal := get_diaganal (board_size)
+
+
+			Result := true
+		end
+
 
 	check_row (i: INTEGER): BOOLEAN
 		-- Check for win in row
@@ -138,7 +175,7 @@ feature -- Queries
 	check_diaganal (i: INTEGER): BOOLEAN
 		-- Check for win in the diaganal
 		do
-			-- TODO
+			--Result := is_array_element_same (get_diaganal (i))
 			Result := true
 		end
 
