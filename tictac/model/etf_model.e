@@ -18,27 +18,27 @@ create {ETF_MODEL_ACCESS}
 
 feature {NONE} -- Initialization
 	make
-			-- Initialization for `Current'.
 		do
 			create s.make_empty
-			i := 0
+			create g.new_game
+			set_report(out_start_new_game)
+
 		end
 
 feature -- model attributes
 	s : STRING
 	i : INTEGER
+	g : GAME
 
 feature -- model operations
 	default_update
-			-- Perform update to the model state.
 		do
-			i := i + 1
+
 		end
 
 	reset
-			-- Reset model state.
 		do
-			make
+			s.wipe_out
 		end
 
 
@@ -56,7 +56,17 @@ feature -- Out Messages
 
 	out_report_success: STRING
 		attribute
-			Result := "ok"
+			Result := "ok: => "
+		end
+
+	out_start_new_game: STRING
+		attribute
+			Result := "start new game"
+		end
+
+	out_plays_next: STRING
+		attribute
+			Result := g.turn.name + " plays next"
 		end
 
 	out_unique_name: STRING
@@ -109,11 +119,10 @@ feature -- Out Messages
 feature -- queries
 	out : STRING
 		do
-			create Result.make_from_string ("  ")
-			Result.append ("System State: default model state ")
-			Result.append ("(")
-			Result.append (i.out)
-			Result.append (")")
+			create Result.make_empty
+			Result.append ("  " + out_report_success)
+			Result.append (report + "%N")
+			Result.append (g.out)
 		end
 
 end

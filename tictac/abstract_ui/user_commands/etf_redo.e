@@ -6,12 +6,12 @@ note
 
 class
 	ETF_REDO
-inherit 
+inherit
 	ETF_REDO_INTERFACE
 		redefine redo end
 create
 	make
-feature -- command 
+feature -- command
 	redo
     	do
 			-- perform some update on the model state

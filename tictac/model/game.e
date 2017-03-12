@@ -7,6 +7,12 @@ note
 class
 	GAME
 
+inherit
+	ANY
+		redefine
+			out
+		end
+
 create
 	new_game
 
@@ -15,24 +21,38 @@ feature -- Attributes
 	player_1: PLAYER
 	player_2: PLAYER
 	won: BOOLEAN
+	history: ARRAYED_LIST[OPERATION]
+	turn: PLAYER
 	--winning_piece: STRING
 	-- History list for undo/redo
 
 feature -- Constructor
-	new_game (p1, p2: STRING)
+
+	new_game
 	-- Create a new game
-		require
-			valid_name: check_player_name(p1) and check_player_name(p2)
-			unique_names: p1 /~ p2
+		--require
+		--	valid_name: check_player_name(p1) and check_player_name(p2)
+		--	unique_names: p1 /~ p2
 
 		do
-			create player_1.make_player (p1, 0, "X")
-			create player_2.make_player (p2, 0, "O")
+			create player_1.make_player ("", 0, "X")
+			create player_2.make_player ("", 0, "O")
 			create game_board.make_board (3)
+			create history.make (0)
+			turn := player_1
 			won := false
 		end
 
 feature -- Commands
+	update_players (p1: STRING; p2: STRING)
+		require
+			valid_name: check_player_name(p1) and check_player_name(p2)
+			unique_names: p1 /~ p2
+		do
+			player_1.set_name (p1)
+			player_2.set_name (p2)
+		end
+
 	add_move (i: INTEGER; piece: STRING)
 		do
 			-- ensure game is not finished before doing a move
@@ -63,6 +83,14 @@ feature -- Queries
 	is_draw: BOOLEAN
 		do
 			Result := game_finished and not won
+		end
+
+	out: STRING
+		do
+			create Result.make_empty
+			Result.append (game_board.out)
+			Result.append ("%N  " + player_1.out)
+			Result.append ("%N  " + player_2.out)
 		end
 
 feature -- Helper

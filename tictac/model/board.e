@@ -201,11 +201,16 @@ feature -- Queries
 
 			across board as cursor loop
 
+				if (cursor.cursor_index \\ board_size) = 1 then
+					Result.append("  ")
+				end
+
 				Result.append (cursor.item)
 
-				if cursor.cursor_index /= number_of_board_fields then
+				if (cursor.cursor_index \\ board_size) = 0 and cursor.cursor_index /= number_of_board_fields then
 					Result.append ("%N")
 				end
+
 
 			end
 		end

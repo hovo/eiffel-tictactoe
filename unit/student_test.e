@@ -113,7 +113,7 @@ feature
 			g: GAME
 		do
 			comment ("t8: Test win")
-			create g.new_game ("a", "b")
+			create g.new_game
 			g.add_move (1, "X")
 			g.add_move (5, "X")
 			g.add_move (9, "X")

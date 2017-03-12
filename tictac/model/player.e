@@ -31,6 +31,11 @@ feature -- Constructor
 		end
 
 feature -- Commands
+	set_name (new_name: STRING)
+		do
+			name := new_name
+		end
+
 	set_score (new_score: INTEGER)
 		require
 			vailid_score: new_score >= 0 and new_score > score

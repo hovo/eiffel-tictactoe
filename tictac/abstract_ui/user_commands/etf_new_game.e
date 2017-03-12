@@ -6,18 +6,18 @@ note
 
 class
 	ETF_NEW_GAME
-inherit 
+inherit
 	ETF_NEW_GAME_INTERFACE
 		redefine new_game end
 create
 	make
-feature -- command 
+feature -- command
 	new_game(player1: STRING ; player2: STRING)
-		require else 
+		require else
 			new_game_precond(player1, player2)
     	do
-			-- perform some update on the model state
-			model.default_update
+			model.g.update_players(player1, player2)
+			model.set_report (model.out_plays_next)
 			etf_cmd_container.on_change.notify ([Current])
     	end
 
