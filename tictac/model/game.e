@@ -39,8 +39,7 @@ feature -- Queries
 
 	is_draw: BOOLEAN
 		do
-			-- TODO
-			Result := true
+			Result := game_board.is_board_full and not is_win
 		end
 
 feature -- Helper
