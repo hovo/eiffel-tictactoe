@@ -18,11 +18,10 @@ feature -- command
 				if not model.g.history.before then
 					model.g.history.item.reaction.call
 					model.g.history.back
-					model.set_report (model.out_report_success + model.g.turn.name + model.out_plays_next)
+					--model.set_report (model.out_report_success + model.g.turn.name + model.out_plays_next)
 				end
 			end
 
 			etf_cmd_container.on_change.notify ([Current])
     	end
-
 end

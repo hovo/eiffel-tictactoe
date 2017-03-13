@@ -101,7 +101,7 @@ feature -- Out Messages
 
 	out_finish_game: STRING
 		attribute
-			Result := "finish this game first: => "
+			Result := "finish this game first:  => "
 		end
 
 	out_game_finished: STRING
@@ -111,7 +111,7 @@ feature -- Out Messages
 
 	out_game_ended_tie: STRING
 		attribute
-			Result := "game ended in a tie"
+			Result := "game ended in a tie: => play again or start new game"
 		end
 
 

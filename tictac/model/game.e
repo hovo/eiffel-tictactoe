@@ -21,6 +21,7 @@ feature -- Attributes
 	player_1: PLAYER
 	player_2: PLAYER
 	won: BOOLEAN
+	draw: BOOLEAN
 	history: ARRAYED_LIST[OPERATION]
 	last_started: PLAYER
 	turn: PLAYER
@@ -36,6 +37,7 @@ feature -- Constructor
 			turn := player_1
 			last_started := player_1
 			won := false
+			draw := false
 		end
 
 feature -- Commands
@@ -44,6 +46,7 @@ feature -- Commands
 			create game_board.make_board (3)
 			create history.make (0)
 			won := false
+			draw := false
 			if last_started.name ~ player_1.name then
 				turn := player_2
 				last_started := player_2
@@ -87,12 +90,13 @@ feature -- Commands
 				history.extend (o)
 				history.finish
 
-				won := is_winning_move(i)
-				if not won then
+				update_game_status(i)
+				if not game_finished then
 					change_turn
-				else
+				elseif won then
 					increment_score(turn)
 				end
+				-- score stays the same in case of a draw
 			end
 		end
 
@@ -109,26 +113,16 @@ feature -- Commands
 			p.set_score (p.score + 1)
 		end
 
+	update_game_status (i: INTEGER)
+		do
+			won := game_board.check_row (i) or game_board.check_column (i) or game_board.check_diagonals(i)
+			draw := game_board.is_board_full and not won
+		end
+
 feature -- Queries
 	game_finished: BOOLEAN
 		do
-			Result := game_board.is_board_full or won
-		end
-
-	is_winning_move (i: INTEGER): BOOLEAN
-		local
-			left_diaganal, right_diaganal: ARRAYED_LIST[INTEGER]
-		do
-			left_diaganal := game_board.get_diaganal (1)
-			right_diaganal := game_board.get_diaganal (game_board.board_size)
-
-			Result := game_board.check_row (i) or game_board.check_column (i) or
-			          game_board.check_diaganal (i, left_diaganal) or game_board.check_diaganal (i, right_diaganal)
-		end
-
-	is_draw: BOOLEAN
-		do
-			Result := game_finished and not won
+			Result := draw or won
 		end
 
 	out: STRING

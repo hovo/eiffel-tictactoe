@@ -194,6 +194,15 @@ feature -- Queries
 			end
 		end
 
+	check_diagonals(i: INTEGER): BOOLEAN
+		local
+			left_diaganal, right_diaganal: ARRAYED_LIST[INTEGER]
+		do
+			left_diaganal := get_diaganal (1)
+			right_diaganal := get_diaganal (board_size)
+			Result := check_diaganal (i, left_diaganal) or check_diaganal (i, right_diaganal)
+		end
+
 	out: STRING
 		-- Print the board
 		do

@@ -31,9 +31,11 @@ feature -- command
 
     		else
     			model.g.add_move (press.to_integer_32, model.g.turn.piece)
-    			if model.g.won then
-    				model.set_report (model.out_winner)
-    			else
+	    		if model.g.won then
+	    			model.set_report (model.out_winner)
+	    		elseif model.g.draw then
+	    			model.set_report (model.out_game_ended_tie)
+	    		else
     				model.set_report (model.out_report_success + model.g.turn.name + model.out_plays_next)
     			end
 
