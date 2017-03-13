@@ -23,19 +23,33 @@ feature -- Attributes
 	won: BOOLEAN
 	draw: BOOLEAN
 	history: ARRAYED_LIST[OPERATION]
-	last_started: PLAYER
 	turn: PLAYER
 
 feature -- Constructor
 
 	new_game
+		--local
+			--p1, p2: PLAYER
 		do
-			create player_1.make_player ("", 0, "X")
-			create player_2.make_player ("", 0, "O")
+			new_game_with_names("","")
+		end
+
+	new_game_with_names(n1: STRING; n2: STRING)
+		local
+			p1, p2: PLAYER
+		do
+			create p1.make_player (n1, 0, "X")
+			create p2.make_player (n2, 0, "O")
+			new_game_with_players(p1, p2)
+		end
+
+	new_game_with_players(p1: PLAYER; p2: PLAYER)
+		do
+			player_1 := p1
+			player_2 := p2
 			create game_board.make_board (3)
 			create history.make (0)
 			turn := player_1
-			last_started := player_1
 			won := false
 			draw := false
 		end
@@ -43,17 +57,7 @@ feature -- Constructor
 feature -- Commands
 	play_again
 		do
-			create game_board.make_board (3)
-			create history.make (0)
-			won := false
-			draw := false
-			if last_started.name ~ player_1.name then
-				turn := player_2
-				last_started := player_2
-			else
-				turn := player_1
-				last_started := player_1
-			end
+			new_game_with_players(player_2, player_1)
 		end
 
 	update_players (p1: STRING; p2: STRING)
