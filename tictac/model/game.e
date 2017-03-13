@@ -23,17 +23,10 @@ feature -- Attributes
 	won: BOOLEAN
 	history: ARRAYED_LIST[OPERATION]
 	turn: PLAYER
-	--winning_piece: STRING
-	-- History list for undo/redo
 
 feature -- Constructor
 
 	new_game
-	-- Create a new game
-		--require
-		--	valid_name: check_player_name(p1) and check_player_name(p2)
-		--	unique_names: p1 /~ p2
-
 		do
 			create player_1.make_player ("", 0, "X")
 			create player_2.make_player ("", 0, "O")
@@ -69,11 +62,21 @@ feature -- Commands
 			end
 		end
 
+	set_piece (i: INTEGER; piece: STRING)
+		do
+			game_board.board.put_i_th (piece, i)
+		end
+
 	add_move (i: INTEGER; piece: STRING)
+		local
+			o: OPERATION
 		do
 			-- ensure game is not finished before doing a move
 			if not game_finished then
-				game_board.board.put_i_th (piece, i)
+				create o
+				o.execute (agent set_piece (i, piece), agent clear_piece (i))
+				history.extend (o)
+
 				won := is_winning_move(i)
 				if not won then
 					change_turn
@@ -83,7 +86,7 @@ feature -- Commands
 			end
 		end
 
-	undo_move (i: INTEGER)
+	clear_piece (i: INTEGER)
 		do
 			if not game_finished then
 				game_board.board.put_i_th (game_board.empty_field, i)
