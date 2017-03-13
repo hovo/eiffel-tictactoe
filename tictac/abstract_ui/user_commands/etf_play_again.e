@@ -15,7 +15,7 @@ feature -- command
 	play_again
     	do
     		model.reset
-    		if model.g.player_1.name ~ "" and model.g.player_1.name ~ "" then
+    		if model.g.player_1.name ~ "" and model.g.player_2.name ~ "" then
 				model.set_report (model.out_finish_game + model.out_start_new_game)
 			elseif not model.g.game_finished then
 				model.set_report (model.out_finish_game + model.g.turn.name + model.out_plays_next)

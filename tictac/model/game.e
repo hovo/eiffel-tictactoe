@@ -22,6 +22,7 @@ feature -- Attributes
 	player_2: PLAYER
 	won: BOOLEAN
 	history: ARRAYED_LIST[OPERATION]
+	last_started: PLAYER
 	turn: PLAYER
 
 feature -- Constructor
@@ -33,18 +34,23 @@ feature -- Constructor
 			create game_board.make_board (3)
 			create history.make (0)
 			turn := player_1
+			last_started := player_1
 			won := false
 		end
 
 feature -- Commands
 	play_again
-
 		do
 			create game_board.make_board (3)
+			create history.make (0)
 			won := false
-			-- TODO delete hostory list
-			change_turn
-
+			if last_started.name ~ player_1.name then
+				turn := player_2
+				last_started := player_2
+			else
+				turn := player_1
+				last_started := player_1
+			end
 		end
 
 	update_players (p1: STRING; p2: STRING)
@@ -75,13 +81,17 @@ feature -- Commands
 			if not game_finished then
 				create o
 				o.execute (agent set_piece (i, piece), agent clear_piece (i))
+				if not history.is_empty and not history.islast then
+					history.remove_right
+				end
 				history.extend (o)
+				history.finish
 
 				won := is_winning_move(i)
 				if not won then
 					change_turn
 				else
-					turn.set_score (turn.score + 1)
+					increment_score(turn)
 				end
 			end
 		end
@@ -92,6 +102,11 @@ feature -- Commands
 				game_board.board.put_i_th (game_board.empty_field, i)
 				change_turn
 			end
+		end
+
+	increment_score (p: PLAYER)
+		do
+			p.set_score (p.score + 1)
 		end
 
 feature -- Queries
