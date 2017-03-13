@@ -14,8 +14,11 @@ create
 feature -- command
 	redo
     	do
-			-- perform some update on the model state
-			model.default_update
+			if not model.g.history.islast then
+				model.g.history.last.action.call
+				model.g.history.forth
+			end
+
 			etf_cmd_container.on_change.notify ([Current])
     	end
 

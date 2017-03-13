@@ -14,11 +14,12 @@ create
 feature -- command
 	undo
     	do
-			model.g.history.last.reaction.call
+
 			if not model.g.history.isfirst then
+				model.g.history.last.reaction.call
 				model.g.history.back
 			end
-			
+
 			etf_cmd_container.on_change.notify ([Current])
     	end
 
