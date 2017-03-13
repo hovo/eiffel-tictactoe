@@ -44,10 +44,28 @@ feature -- Constructor
 		end
 
 feature -- Commands
+	play_again
+		do
+			game_board.clear_board
+			won := false
+			-- TODO delete hostory list
+			change_turn
+
+		end
+
 	update_players (p1: STRING; p2: STRING)
 		do
 			player_1.set_name (p1)
 			player_2.set_name (p2)
+		end
+
+	change_turn
+		do
+			if turn ~ player_1 then
+				turn := player_2
+			else
+				turn := player_1
+			end
 		end
 
 	add_move (i: INTEGER; piece: STRING)
@@ -56,7 +74,19 @@ feature -- Commands
 			if not game_finished then
 				game_board.board.put_i_th (piece, i)
 				won := is_winning_move(i)
-				-- TODO: keep track of who won, and update score
+				if not won then
+					change_turn
+				else
+					turn.set_score (turn.score + 1)
+				end
+			end
+		end
+
+	undo_move (i: INTEGER)
+		do
+			if not game_finished then
+				game_board.board.put_i_th (game_board.empty_field, i)
+				change_turn
 			end
 		end
 

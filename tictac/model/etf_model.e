@@ -101,7 +101,7 @@ feature -- Out Messages
 
 	out_finish_game: STRING
 		attribute
-			Result := "finish this game first"
+			Result := "finish this game first: => "
 		end
 
 	out_game_finished: STRING
