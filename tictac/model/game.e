@@ -61,7 +61,7 @@ feature -- Commands
 
 	change_turn
 		do
-			if turn ~ player_1 then
+			if turn.name ~ player_1.name then
 				turn := player_2
 			else
 				turn := player_1

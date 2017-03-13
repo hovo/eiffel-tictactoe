@@ -23,7 +23,7 @@ feature -- command
 				model.set_report (model.out_name_start + model.out_start_new_game)
     		else
     			model.g.update_players(player1, player2)
-				model.set_report (model.out_report_success + model.out_plays_next)
+				model.set_report (model.out_report_success + model.g.turn.name + model.out_plays_next)
     		end
 
 			etf_cmd_container.on_change.notify ([Current])

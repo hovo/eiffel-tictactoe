@@ -66,7 +66,7 @@ feature -- Out Messages
 
 	out_plays_next: STRING
 		attribute
-			Result := g.turn.name + " plays next"
+			Result := " plays next"
 		end
 
 	out_unique_name: STRING
@@ -81,17 +81,17 @@ feature -- Out Messages
 
 	out_wrong_turn: STRING
 		attribute
-			Result := "not this player's turn"
+			Result := "not this player's turn: => "
 		end
 
 	out_player_dne: STRING
 		attribute
-			Result := "no such player"
+			Result := "no such player: => "
 		end
 
 	out_button_taken: STRING
 		attribute
-			Result := "button already taken"
+			Result := "button already taken: => "
 		end
 
 	out_winner: STRING
