@@ -19,30 +19,22 @@ create {ETF_MODEL_ACCESS}
 feature {NONE} -- Initialization
 	make
 		do
-			create s.make_empty
 			create g.new_game
 			set_report(out_report_success + out_start_new_game)
 
 		end
 
 feature -- model attributes
-	s : STRING
-	i : INTEGER
 	g : GAME
 
 feature -- model operations
-	default_update
-		do
-
-		end
-
 	reset
 		do
 			report.wipe_out
 		end
 
 
-feature
+feature -- Command
 	set_report (new_report: STRING)
 		do
 			report := new_report
@@ -117,6 +109,12 @@ feature -- Out Messages
 
 
 feature -- queries
+
+	get_report: STRING
+		do
+			Result := report
+		end
+
 	out : STRING
 		do
 			create Result.make_empty
