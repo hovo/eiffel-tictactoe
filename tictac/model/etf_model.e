@@ -21,7 +21,7 @@ feature {NONE} -- Initialization
 		do
 			create s.make_empty
 			create g.new_game
-			set_report(out_start_new_game)
+			set_report(out_report_success + out_start_new_game)
 
 		end
 
@@ -38,7 +38,7 @@ feature -- model operations
 
 	reset
 		do
-			s.wipe_out
+			report.wipe_out
 		end
 
 
@@ -56,7 +56,7 @@ feature -- Out Messages
 
 	out_report_success: STRING
 		attribute
-			Result := "ok: => "
+			Result := "ok:  => "
 		end
 
 	out_start_new_game: STRING
@@ -71,12 +71,12 @@ feature -- Out Messages
 
 	out_unique_name: STRING
 		attribute
-			Result := "names of players must be different"
+			Result := "names of players must be different:  => "
 		end
 
 	out_name_start: STRING
 		attribute
-			Result := "names of players must be different"
+			Result := "name must start with A-Z or a-z:  => "
 		end
 
 	out_wrong_turn: STRING
@@ -120,8 +120,7 @@ feature -- queries
 	out : STRING
 		do
 			create Result.make_empty
-			Result.append ("  " + out_report_success)
-			Result.append (report + "%N")
+			Result.append ("  " + report + "%N")
 			Result.append (g.out)
 		end
 

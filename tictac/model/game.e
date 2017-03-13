@@ -45,9 +45,6 @@ feature -- Constructor
 
 feature -- Commands
 	update_players (p1: STRING; p2: STRING)
-		require
-			valid_name: check_player_name(p1) and check_player_name(p2)
-			unique_names: p1 /~ p2
 		do
 			player_1.set_name (p1)
 			player_2.set_name (p2)
@@ -97,7 +94,7 @@ feature -- Helper
 	check_player_name (s: STRING): BOOLEAN
 		-- Check if the first character contians A-z or a-z
 		do
-			Result := not s.is_empty and s.at (1).is_alpha
+			Result := s.is_empty and not s.at (1).is_alpha
 		end
 
 
