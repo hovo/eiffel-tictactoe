@@ -78,6 +78,9 @@ feature -- Commands
 	set_piece (i: INTEGER; piece: STRING)
 		do
 			game_board.board.put_i_th (piece, i)
+			if not game_finished then
+				change_turn
+			end
 		end
 
 	add_move (i: INTEGER; piece: STRING)
@@ -95,9 +98,8 @@ feature -- Commands
 				history.finish
 
 				update_game_status(i)
-				if not game_finished then
-					change_turn
-				elseif won then
+
+				if won then
 					increment_score(turn)
 				end
 				-- score stays the same in case of a draw
