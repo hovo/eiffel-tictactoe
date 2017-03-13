@@ -96,7 +96,7 @@ feature -- Out Messages
 
 	out_winner: STRING
 		attribute
-			Result := "button already taken"
+			Result := "there is a winner: => play again or start new game"
 		end
 
 	out_finish_game: STRING

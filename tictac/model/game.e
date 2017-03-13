@@ -45,8 +45,9 @@ feature -- Constructor
 
 feature -- Commands
 	play_again
+
 		do
-			game_board.clear_board
+			create game_board.make_board (3)
 			won := false
 			-- TODO delete hostory list
 			change_turn

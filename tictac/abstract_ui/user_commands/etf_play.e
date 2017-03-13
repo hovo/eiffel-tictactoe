@@ -28,10 +28,15 @@ feature -- command
 
     		elseif model.g.game_board.get_piece_at (press.as_integer_32) /~ model.g.game_board.empty_field then
     			model.set_report (model.out_button_taken + model.g.turn.name + model.out_plays_next)
-    			
+
     		else
     			model.g.add_move (press.to_integer_32, model.g.turn.piece)
-				model.set_report (model.out_report_success + model.g.turn.name + model.out_plays_next)
+    			if model.g.won then
+    				model.set_report (model.out_winner)
+    			else
+    				model.set_report (model.out_report_success + model.g.turn.name + model.out_plays_next)
+    			end
+
     		end
 
 

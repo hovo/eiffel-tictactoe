@@ -215,17 +215,6 @@ feature -- Queries
 			end
 		end
 
-feature -- Commands
-	clear_board
-		-- Clear the board
-		do
-			if not is_board_empty then
-				across board as cursor loop
-					board.replace (empty_field)
-				end
-			end
-
-		end
 
 feature -- Helpers
 	valid_button_number (i: INTEGER): BOOLEAN
