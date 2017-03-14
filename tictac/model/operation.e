@@ -24,4 +24,5 @@ feature
 		attribute
 			Result := (agent do end)
 		end
+
 end

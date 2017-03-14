@@ -1,0 +1,5 @@
+new_game("a","b")
+new_game("","")
+new_game("0","a")
+new_game("a","a")
+new_game("!"," ")

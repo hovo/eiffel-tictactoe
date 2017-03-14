@@ -23,7 +23,7 @@ feature {NONE}
 			add_boolean_case (agent t5)
 			add_boolean_case (agent t6)
 			add_boolean_case (agent t7)
-			add_boolean_case (agent t8)
+
 		end
 
 feature
@@ -106,19 +106,6 @@ feature
 			Check Result end
 			list := b.get_diaganal (3)
 			Result := list.has (3) and list.has (5) and list.has (7)
-		end
-
-	t8: BOOLEAN
-		local
-			g: GAME
-		do
-			comment ("t8: Test win")
-			create g.new_game
-			g.add_move (1, "X")
-			g.add_move (5, "X")
-			g.add_move (9, "X")
-
-			Result := g.game_finished and g.won
 		end
 
 

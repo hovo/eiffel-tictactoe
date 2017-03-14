@@ -33,6 +33,10 @@
 		</cluster>
 		<cluster name="tests" location="tests\">
 			<cluster name="unit" location=".\unit\"/>
+			<cluster name="acceptance" location=".\acceptance\">
+				<cluster name="instructor" location=".\instructor\"/>
+				<cluster name="student" location=".\student\"/>
+			</cluster>
 		</cluster>
 		<cluster name="tictac" location=".\tictac\" recursive="true">
 			<option void_safety="all" syntax="standard">

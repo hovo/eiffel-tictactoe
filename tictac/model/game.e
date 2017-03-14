@@ -24,6 +24,8 @@ feature -- Attributes
 	draw: BOOLEAN
 	history: ARRAYED_LIST[OPERATION]
 	turn: PLAYER
+	started: BOOLEAN
+	startedLast: PLAYER
 
 feature -- Constructor
 
@@ -32,6 +34,7 @@ feature -- Constructor
 			--p1, p2: PLAYER
 		do
 			new_game_with_names("","")
+			started := false
 		end
 
 	new_game_with_names(n1: STRING; n2: STRING)
@@ -50,14 +53,28 @@ feature -- Constructor
 			create game_board.make_board (3)
 			create history.make (0)
 			turn := player_1
+			startedLast := player_1
 			won := false
 			draw := false
+			started := true
 		end
 
 feature -- Commands
 	play_again
+		local
+			newTurn: PLAYER
+			newStart: PLAYER
 		do
-			new_game_with_players(player_2, player_1)
+			if startedLast.name ~ player_1.name then
+				newStart := player_2
+				newTurn := player_2
+			else
+				newStart := player_1
+				newTurn := player_1
+			end
+			new_game_with_players(player_1, player_2)
+			turn := newTurn
+			startedLast := newStart
 		end
 
 	update_players (p1: STRING; p2: STRING)
@@ -78,28 +95,19 @@ feature -- Commands
 	set_piece (i: INTEGER; piece: STRING)
 		do
 			game_board.board.put_i_th (piece, i)
-			if not game_finished then
-				change_turn
-			end
 		end
 
 	add_move (i: INTEGER; piece: STRING)
-		local
-			o: OPERATION
 		do
 			-- ensure game is not finished before doing a move
 			if not game_finished then
-				create o
-				o.execute (agent set_piece (i, piece), agent clear_piece (i))
-				if not history.is_empty and not history.islast then
-					history.remove_right
-				end
-				history.extend (o)
-				history.finish
-
+				set_piece (i, piece)
 				update_game_status(i)
 
-				if won then
+
+				if not game_finished then
+					change_turn
+				elseif won then
 					increment_score(turn)
 				end
 				-- score stays the same in case of a draw
@@ -125,6 +133,15 @@ feature -- Commands
 			draw := game_board.is_board_full and not won
 		end
 
+	add_to_history (o: OPERATION)
+		do
+			if not history.is_empty and not history.islast then
+				history.remove_right
+			end
+			history.extend (o)
+			history.finish
+		end
+
 feature -- Queries
 	game_finished: BOOLEAN
 		do
@@ -140,10 +157,10 @@ feature -- Queries
 		end
 
 feature -- Helper
-	check_player_name (s: STRING): BOOLEAN
+	valid_player_name (s: STRING): BOOLEAN
 		-- Check if the first character contians A-z or a-z
 		do
-			Result := s.is_empty and not s.at (1).is_alpha
+			Result := not s.is_empty and s.at (1).is_alpha
 		end
 
 

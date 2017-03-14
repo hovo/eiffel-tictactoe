@@ -20,7 +20,7 @@ feature {NONE} -- Initialization
 	make
 		do
 			create g.new_game
-			set_report(out_report_success + out_start_new_game)
+			set_report(out_report_success + ":" + out_start_new_game)
 
 		end
 
@@ -48,12 +48,12 @@ feature -- Out Messages
 
 	out_report_success: STRING
 		attribute
-			Result := "ok:  => "
+			Result := "ok"
 		end
 
 	out_start_new_game: STRING
 		attribute
-			Result := "start new game"
+			Result := "  => start new game"
 		end
 
 	out_plays_next: STRING
@@ -63,37 +63,37 @@ feature -- Out Messages
 
 	out_unique_name: STRING
 		attribute
-			Result := "names of players must be different:  => "
+			Result := "names of players must be different"
 		end
 
 	out_name_start: STRING
 		attribute
-			Result := "name must start with A-Z or a-z:  => "
+			Result := "name must start with A-Z or a-z"
 		end
 
 	out_wrong_turn: STRING
 		attribute
-			Result := "not this player's turn: => "
+			Result := "not this player's turn"
 		end
 
 	out_player_dne: STRING
 		attribute
-			Result := "no such player: => "
+			Result := "no such player"
 		end
 
 	out_button_taken: STRING
 		attribute
-			Result := "button already taken: => "
+			Result := "button already taken"
 		end
 
 	out_winner: STRING
 		attribute
-			Result := "there is a winner: => play again or start new game"
+			Result := "there is a winner"
 		end
 
 	out_finish_game: STRING
 		attribute
-			Result := "finish this game first:  => "
+			Result := "finish this game first"
 		end
 
 	out_game_finished: STRING
@@ -103,8 +103,14 @@ feature -- Out Messages
 
 	out_game_ended_tie: STRING
 		attribute
-			Result := "game ended in a tie: => play again or start new game"
+			Result := "game ended in a tie"
 		end
+
+	out_play_again_or_new: STRING
+		attribute
+			Result := "play again or start new game"
+		end
+
 
 
 
@@ -118,7 +124,7 @@ feature -- queries
 	out : STRING
 		do
 			create Result.make_empty
-			Result.append ("  " + report + "%N")
+			Result.append ("  " + report.out + "%N")
 			Result.append (g.out)
 		end
 
